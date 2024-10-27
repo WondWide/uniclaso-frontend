@@ -7,6 +7,8 @@ import { Auth0Provider } from '@auth0/auth0-react';
 import NavigationBar from './components/Navbar';
 import Profile from './pages/Profile';
 import PrivateRoute from './components/PrivateRoute';
+import Admin from './pages/Admin';
+import AdminRoute from './components/AdminRoute';
 
 // Home 컴포넌트
 function Home() {
@@ -60,6 +62,14 @@ function App() {
               } 
             />
             <Route path="/callback" element={<Callback />} />
+            <Route 
+              path="/admin" 
+              element={
+                <AdminRoute>
+                <Admin />
+              </AdminRoute>
+              } 
+            />
           </Routes>
         </div>
       </Router>
