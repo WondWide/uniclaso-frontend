@@ -26,15 +26,21 @@ function App() {
           <Route path="/reset-password/:token" element={<ResetPassword />} />
         </Routes>
       </div>
+
+      <div className="App">
+        <h1>Welcome to My App</h1>
+        {/* 다른 컴포넌트 및 내용 */}
+      </div>
+
+
     </Router>
 
-<div className="App">
-<h1>Welcome to My App</h1>
-{/* 다른 컴포넌트 및 내용 */}
-</div>
+
 
 
   );
 }
 
 export default App;
+
+
