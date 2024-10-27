@@ -1,33 +1,67 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
+import { Container, Card, Row, Col, Button } from 'react-bootstrap';
 
 function Profile() {
-  const [profile, setProfile] = useState(null);
+  const { user, isAuthenticated, isLoading, logout } = useAuth0();
 
-  useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        const token = localStorage.getItem('token');
-        const response = await axios.get('http://localhost:5000/api/profile', {
-          headers: { Authorization: `Bearer ${token}` }
-        });
-        setProfile(response.data);
-      } catch (error) {
-        alert('프로필 불러오기 실패: ' + error.response.data.message);
-      }
-    };
+  if (isLoading) {
+    return (
+      <div className="d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>
+        <div className="spinner-border text-primary" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    );
+  }
 
-    fetchProfile();
-  }, []);
-
-  if (!profile) return <div>로딩 중...</div>;
+  if (!isAuthenticated) {
+    return <div>Please log in to view this page.</div>;
+  }
 
   return (
-    <div>
-      <h1>프로필 페이지</h1>
-      <p>사용자 이름: {profile.username}</p>
-      <p>이메일: {profile.email}</p>
-    </div>
+    <Container className="mt-5">
+      <Row className="justify-content-center">
+        <Col md={8}>
+          <Card>
+            <Card.Body>
+              <div className="mb-4 text-center">
+                {user?.picture && (
+                  <img
+                    src={user.picture}
+                    alt={user.name}
+                    className="mb-3 rounded-circle"
+                    width="100"
+                    height="100"
+                    style={{ objectFit: 'cover' }}
+                  />
+                )}
+                <h2>{user.name}</h2>
+                <p className="text-muted">{user.email}</p>
+              </div>
+              
+              <h4 className="mb-3">프로필 정보</h4>
+              <div className="p-3 rounded bg-light">
+                <pre style={{ whiteSpace: 'pre-wrap' }}>
+                  {JSON.stringify(user, null, 2)}
+                </pre>
+              </div>
+
+              <div className="mt-4 text-center">
+                <Button 
+                  variant="outline-danger"
+                  onClick={() => logout({ 
+                    logoutParams: { returnTo: window.location.origin } 
+                  })}
+                >
+                  로그아웃
+                </Button>
+              </div>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+    </Container>
   );
 }
 

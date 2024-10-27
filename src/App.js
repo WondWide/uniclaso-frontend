@@ -2,9 +2,13 @@ import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Auth0Provider } from '@auth0/auth0-react';
 import NavigationBar from './components/Navbar';
+import Profile from './pages/Profile';
+import PrivateRoute from './components/PrivateRoute';
 
+// Home 컴포넌트
 function Home() {
   return (
     <Container className="mt-5">
@@ -26,14 +30,40 @@ function Home() {
   );
 }
 
+// Callback 컴포넌트
+function Callback() {
+  return <div>Loading...</div>;
+}
+
 function App() {
   return (
-    <Router>
-      <div className="App">
-        <NavigationBar />
-        <Home />
-      </div>
-    </Router>
+    <Auth0Provider
+      domain={process.env.REACT_APP_AUTH0_DOMAIN}
+      clientId={process.env.REACT_APP_AUTH0_CLIENT_ID}
+      authorizationParams={{
+        redirect_uri: window.location.origin,
+        audience: `https://${process.env.REACT_APP_AUTH0_DOMAIN}/api/v2/`,
+        scope: "openid profile email"
+      }}
+    >
+      <Router>
+        <div className="App">
+          <NavigationBar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route 
+              path="/profile" 
+              element={
+                <PrivateRoute>
+                  <Profile />
+                </PrivateRoute>
+              } 
+            />
+            <Route path="/callback" element={<Callback />} />
+          </Routes>
+        </div>
+      </Router>
+    </Auth0Provider>
   );
 }
 
