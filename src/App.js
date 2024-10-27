@@ -10,9 +10,6 @@ import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword';
 
 
-
-export default App;
-
 function App() {
   return (
     <Router>
@@ -41,6 +38,6 @@ function App() {
   );
 }
 
+
+
 export default App;
-
-
