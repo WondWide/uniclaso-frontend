@@ -1,43 +1,35 @@
 import React from 'react';
-import './App.css'; // 기존 스타일 파일
-import 'bootstrap/dist/css/bootstrap.min.css'; // Bootstrap CSS 임포트
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Home from './pages/Home';
-import Register from './pages/Register';
-import Login from './pages/Login';
-import Profile from './pages/Profile';
-import ForgotPassword from './pages/ForgotPassword';
-import ResetPassword from './pages/ResetPassword';
+import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 
-
-function App() {
+function Home() {
   return (
-    <Router>
-      <div>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/reset-password/:token" element={<ResetPassword />} />
-        </Routes>
-      </div>
-
-      <div className="App">
-        <h1>Welcome to My App</h1>
-        {/* 다른 컴포넌트 및 내용 */}
-      </div>
-
-
-    </Router>
-
-
-
-
+    <Container className="mt-5">
+      <Row className="justify-content-center">
+        <Col md={8}>
+          <Card className="text-center">
+            <Card.Header>Welcome to Uniclaso</Card.Header>
+            <Card.Body>
+              <Card.Title>Discover Amazing Features</Card.Title>
+              <Card.Text>
+                Explore our platform and enjoy the seamless experience we offer.
+              </Card.Text>
+              <Button variant="primary" href="/register">Get Started</Button>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+    </Container>
   );
 }
 
-
+function App() {
+  return (
+    <div className="App">
+      <Home />
+    </div>
+  );
+}
 
 export default App;
