@@ -11,7 +11,7 @@ function NavigationBar() {
   
   // 관리자 권한 체크 수정
   const isAdmin = user && 
-    (user['https://uniclaso.com/roles']?.includes('admin') || 
+    (user['https://ko.uniclaso.com/roles']?.includes('admin') || 
      user.role === 'admin' || 
      user.roles?.includes('admin'));
 
