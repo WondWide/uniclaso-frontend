@@ -2,6 +2,8 @@ import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
+import { BrowserRouter as Router } from 'react-router-dom';
+import NavigationBar from './components/Navbar';
 
 function Home() {
   return (
@@ -9,13 +11,13 @@ function Home() {
       <Row className="justify-content-center">
         <Col md={8}>
           <Card className="text-center">
-            <Card.Header>Welcome to Uniclaso</Card.Header>
+            <Card.Header>유니클라소에 오신 것을 환영합니다</Card.Header>
             <Card.Body>
-              <Card.Title>Discover Amazing Features</Card.Title>
+              <Card.Title>놀라운 기능을 발견해보세요</Card.Title>
               <Card.Text>
-                Explore our platform and enjoy the seamless experience we offer.
+                우리 플랫폼을 탐색하고 원활한 경험을 즐겨보세요.
               </Card.Text>
-              <Button variant="primary" href="/register">Get Started</Button>
+              <Button variant="primary" href="/register">시작하기</Button>
             </Card.Body>
           </Card>
         </Col>
@@ -26,9 +28,12 @@ function Home() {
 
 function App() {
   return (
-    <div className="App">
-      <Home />
-    </div>
+    <Router>
+      <div className="App">
+        <NavigationBar />
+        <Home />
+      </div>
+    </Router>
   );
 }
 
